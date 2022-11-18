@@ -26,7 +26,7 @@ include $_INNER_PATH ."/routes.php";
                         <td> 
                             <ul>
                                 <?php foreach ($recipe->ingredients as $ingredient) { ?>
-                                        <li> <?=$ingredient->name?> </li>
+                                        <li> <?=$ingredient->name?> | <?=$ingredient->quantity?> g</li>
                         <?php } ?>
                             </ul>
                         </td>

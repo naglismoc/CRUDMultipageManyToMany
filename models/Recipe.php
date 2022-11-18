@@ -37,12 +37,14 @@ class Recipe {
        }
         $recipeId = $stmt->insert_id;
 
-        foreach ($_POST['ingredients'] as  $ingredient) {         
-            $stmt = $db->conn->prepare("INSERT INTO `ingredients_recipes`(`ingredient_id`, `recipe_id`) VALUES (?, ?)");
-            $stmt->bind_param("ii", $ingredient, $recipeId);
-            if(!$stmt->execute()) {
-                print_r( $stmt->error_list);
-            }
+        foreach ($_POST['ingredients'] as $id => $ingredient) {   
+            if($ingredient != ""){      
+                $stmt = $db->conn->prepare("INSERT INTO `ingredients_recipes`(`ingredient_id`, `recipe_id`,`quantity`) VALUES (?, ?, ?)");
+                $stmt->bind_param("iii", $id, $recipeId,$ingredient);
+                if(!$stmt->execute()) {
+                    print_r( $stmt->error_list);
+                }
+            }                           
         }
 
        $stmt->close();
@@ -76,16 +78,18 @@ class Recipe {
  
            $query = "delete from `ingredients_recipes` where `recipe_id` = ".$this->id;
             $db->conn->query($query);
-
-           foreach ($_POST['ingredients'] as  $ingredient) {         
-            $stmt = $db->conn->prepare("INSERT INTO `ingredients_recipes`(`ingredient_id`, `recipe_id`) VALUES (?, ?)");
-            $stmt->bind_param("ii", $ingredient, $this->id);
-            if(!$stmt->execute()) {
-                print_r( $stmt->error_list);
+        //    print_r($_POST);die;
+            foreach ($_POST['ingredients'] as $id => $ingredient) {   
+                if($ingredient != ""){      
+                    $stmt = $db->conn->prepare("INSERT INTO `ingredients_recipes`(`ingredient_id`, `recipe_id`,`quantity`) VALUES (?, ?, ?)");
+                    $stmt->bind_param("iii", $id, $this->id, $ingredient);
+                    if(!$stmt->execute()) {
+                        print_r( $stmt->error_list);
+                    }
+                }                           
             }
-        }
 
-
+// die;
         $stmt->close();
         $db->conn->close();
     }

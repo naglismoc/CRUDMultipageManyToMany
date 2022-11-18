@@ -6,11 +6,13 @@ class Ingredient {
     public $id;
     public $name;
     public $recipes;
+    public $quantity;
 
-    public function __construct($id = null, $name = null)
+    public function __construct($id = null, $name = null, $quantity = null)
     {
       $this->id = $id;
       $this->name = $name;
+      $this->quantity = $quantity;
     }
 
     public static function all(){
@@ -32,7 +34,7 @@ class Ingredient {
     {
         $ingredients = [];
         $db = new DB();
-        $query = "SELECT `i`.`id`, `i`.`name` FROM `ingredients_recipes` `ir`
+        $query = "SELECT `i`.`id`, `i`.`name`, `ir`.`quantity` FROM `ingredients_recipes` `ir`
         join `ingredients` `i`
         on `i`.`id` = `ir`.`ingredient_id`
         join `recipes` `r`
@@ -41,7 +43,7 @@ class Ingredient {
         $result = $db->conn->query($query);
 
         while($row = $result->fetch_assoc()){
-            $ingredient = new Ingredient( $row['id'], $row['name']);
+            $ingredient = new Ingredient( $row['id'], $row['name'], $row['quantity']);
             //$ingredient->model = HiveModelController::show($row['hive_model_id']);
             $ingredients[] = $ingredient;
         }

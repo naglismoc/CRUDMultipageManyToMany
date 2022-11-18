@@ -6,6 +6,7 @@ if(strpos($_SERVER['REQUEST_URI'], "/recipe/") !== false){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         
         if(isset($_POST['save'])){
+            
             RecipeController::store();
             header("Location: ".$_OUTER_PATH."/views/recipe/index.php");
             die;
@@ -27,7 +28,7 @@ if(strpos($_SERVER['REQUEST_URI'], "/recipe/") !== false){
 
     if($_SERVER['REQUEST_METHOD'] == "GET"){
         if(count($_GET) == 0){
-          
+      
             $recipes = RecipeController::index();
             $ingredients = IngredientController::index();
         }
@@ -85,4 +86,6 @@ if(strpos($_SERVER['REQUEST_URI'], "/model/") !== false){
 
     // $RecipeModels = RecipeModelController::index();
 }
+
+
 ?>

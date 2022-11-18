@@ -20,16 +20,16 @@ if(isset($_SESSION['POST'])){
             <input type="text" name="name" id="f1" value="<?=($old)? $_SESSION['POST']['title'] : $recipe->name?>" class="form-control"">
         </div>
         <?php foreach ($ingredients as $key => $i) {
-                    $checked = "";
+                    $value = "";
             ?>
                 <label for="i<?=$key?>"><?=$i->name?></label>
                 <?php foreach ($recipe->ingredients as  $ri) {
                    if($i->id == $ri->id){
-                    $checked = "checked";
+                    $value = $ri->quantity;
                     break;
                    }
                 }?>
-               <input type="checkbox" <?=$checked?> name="ingredients[]" value="<?=$i->id?>" id="i<?=$key?>"><br>
+               <input type="text" name="ingredients[<?=$i->id?>]" value="<?=$value?>" id="i<?=$key?>"><br>
             <?php } ?>
         <input type="hidden" name="id" value="<?=$recipe->id?>" >
 

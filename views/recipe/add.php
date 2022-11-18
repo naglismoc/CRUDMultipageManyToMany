@@ -21,12 +21,16 @@ if(isset($_SESSION['POST'])){
         </div>
         
   
-            <?php foreach ($ingredients as $key => $i) {?>
+            <!-- <?php foreach ($ingredients as $key => $i) {?>
                 <label for="i<?=$key?>"><?=$i->name?></label>
                <input type="checkbox" name="ingredients[]" value="<?=$i->id?>" id="i<?=$key?>"><br>
-            <?php } ?>
+            <?php } ?> -->
             
   
+            <?php foreach ($ingredients as $key => $i) {?>
+                <label for="i<?=$key?>"><?=$i->name?></label>
+                <input type="text" name="ingredients[<?=$i->id?>]" id="i<?=$key?>" placeholder="kiekis gramais"><br>
+            <?php } ?>
         <button type="submit" name="save" class="btn btn-primary mt-3 mb-3">Išsaugoti</button>
 
 </form>

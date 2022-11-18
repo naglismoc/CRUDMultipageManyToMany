@@ -7,7 +7,7 @@ class IngredientController{
 
     public static function index()
     {
-        return Ingredient::all();
+        return Ingredient::all(); 
     }
 
 public static function findByRecipe($id)
